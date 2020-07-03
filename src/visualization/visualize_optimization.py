@@ -72,9 +72,9 @@ def evaluate(results, name):
 def main(argv):
 
     parser = argparse.ArgumentParser(description='Optimize Hyperparameters')
-    parser.add_argument('--outfile', '-o', type=str, required=False,
+    parser.add_argument('--outdir', '-o', type=str, required=False,
                         default='../../reports/optimization/',
-                        help='the number of cross validation folds')
+                        help='the directory to save all generated figures and files')
     parser.add_argument('--results', '-r', type=str, required=False,
                         default='../../reports/optimization/bayes_test.csv',
                         help='the results.csv file')
@@ -83,7 +83,7 @@ def main(argv):
     
 
     # Parse arguments
-    OUT_FILE = args.outfile
+    OUT_FILE = args.outdir
     RESULTS = args.results
     
     bayes_results = pd.read_csv(RESULTS).sort_values('score', ascending = False).reset_index()
