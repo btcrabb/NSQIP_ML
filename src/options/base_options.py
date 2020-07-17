@@ -19,7 +19,6 @@ class BaseOptions:
         parser.add_argument('--gpu_ids', type=str, default='-1', help='gpu ids: e.g. 0  0,1,2, 0,2. use -1 for CPU')
         parser.add_argument('--checkpoints_dir', type=str, default='./checkpoints', help='models are saved here')
         # model parameters
-        parser.add_argument('--model', type=str, default='SVC', help='chooses which model to use.')
         parser.add_argument('--num_threads', default=4, type=int, help='# threads for loading data')
         self.initialized = True
 

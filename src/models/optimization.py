@@ -55,8 +55,9 @@ def objective(hyperparameters):
     start = timer()
 	
     # Make sure parameters that need to be integers are integers
-    #for parameter_name in ['max_depth', 'n_estimators']:
-    #    hyperparameters[parameter_name] = int(hyperparameters[parameter_name])
+    if type(MODEL).__name__ == 'XGBClassifier':
+        hyperparameters['max_depth'] = int(hyperparameters['max_depth'])
+        hyperparameters['n_estimators'] = int(hyperparameters['n_estimators'])
 
     # define model
     model = MODEL.set_params(**hyperparameters)
@@ -112,7 +113,11 @@ def evaluate(results, name):
     # Use best hyperparameters to create a model
     hyperparameters = new_results.loc[0, 'hyperparameters']
     print('Optimal Hyperparameters: {}'.format(hyperparameters))
-    model = MODEL.set_params(**hyperparameters)
+
+    if type(MODEL).__name__ == 'SVC':
+        model = MODEL.set_params(**hyperparameters, probability=True)
+    else:
+        model = MODEL.set_params(**hyperparameters)
 
     # Train and make predictions
     model.fit(train_features, train_labels)
@@ -146,12 +151,14 @@ def optimize(space):
     global train_labels
     global test_labels
 
-    train_features, test_features, train_labels, test_labels = util.load_train_and_test(DATASET_PATH)
+    train_features, train_labels, test_features, test_labels = util.load_train_and_test(DATASET_PATH)
 
-    print(train_features.head(10))
+    train_features = train_features
+    test_features = test_features
 
-    print('Train shape: ', train_features.shape)
-    print('Test shape: ', test_features.shape)
+    # squeeze label dimensions
+    test_labels = test_labels.values.ravel()
+    train_labels = train_labels.values.ravel()
 
     if os.path.exists(OUT_FILE) and CONTINUE==1:
         print('Using {}'.format(OUT_FILE))
@@ -164,9 +171,6 @@ def optimize(space):
         headers = ['loss', 'hyperparameters', 'iteration', 'runtime', 'score']
         writer.writerow(headers)
         of_connection.close()
-
-    # Create the algorithm
-    tpe_algorithm = tpe.suggest
 
     global trials 
     global ITERATION
@@ -223,9 +227,16 @@ def flatten(d, parent_key ='', sep ='_'):
     return dict(items)
 
 
-def main():
+def main(**kwargs):
 
-    opt = OptimizationOptions().parse()
+    if not kwargs:
+        opt = OptimizationOptions().parse()
+    else:
+        opt = OptimizationOptions().parse()
+        opt.model = kwargs.get('model')
+        opt.outfile = '../../reports/optimization/{}/{}_bayes_test.csv'.format(opt.model, date.today())
+
+        print('Running optimization for {}'.format(opt.model))
 
     # Governing choices for search
     global MAX_EVALS
@@ -261,8 +272,97 @@ def main():
             'tol': hp.uniform('tol', 0.0000000001, 0.01)
         }
 
-    elif opt.model == 'DecisionTreeClassifier':
-        MODEL = sklearn.tree.DecisionTreeClassifier()
+    elif opt.model == 'DecisionTree':
+        from sklearn.tree import DecisionTreeClassifier
+        MODEL = DecisionTreeClassifier()
+
+        # Define the search space
+        space = {
+            'criterion': hp.choice('criterion',
+                                 [{'criterion': 'gini'},
+                                  {'criterion': 'entropy'}]),
+            'min_samples_split': hp.choice('min_samples_split', range(2,10)),
+            'min_samples_leaf': hp.choice('min_samples_leaf', range(1, 10)),
+            'min_weight_fraction_leaf': hp.uniform('min_weight_fraction_leaf', 0, 0.5),
+            'max_features': hp.choice('max_features', ['auto', 'log2', None]),
+            'random_state': hp.choice('random_state', [0]),
+            'min_impurity_decrease': hp.uniform('min_impurity_decrease', 0, 0.5),
+            'class_weight': hp.choice('class_weight', ['balanced', None])
+        }
+
+    elif opt.model == 'RandomForest':
+        from sklearn.ensemble import RandomForestClassifier
+        MODEL = RandomForestClassifier()
+
+        # Define the search space
+        space = {
+            'n_estimators': hp.choice('n_estimators', range(10,300)),
+            'criterion': hp.choice('criterion',
+                                 [{'criterion': 'gini'},
+                                  {'criterion': 'entropy'}]),
+            'min_samples_split': hp.choice('min_samples_split', range(2,10)),
+            'min_samples_leaf': hp.choice('min_samples_leaf', range(1, 10)),
+            'min_weight_fraction_leaf': hp.uniform('min_weight_fraction_leaf', 0, 0.5),
+            'max_features': hp.choice('max_features', ['auto', 'log2', None]),
+            'random_state': hp.choice('random_state', [0]),
+            'min_impurity_decrease': hp.uniform('min_impurity_decrease', 0, 0.5),
+            'n_jobs': hp.choice('n_jobs', [8]),
+            'class_weight': hp.choice('class_weight', ['balanced', 'balanced_subsample', None])
+        }
+
+    elif opt.model == 'AdaBoost':
+        from sklearn.ensemble import AdaBoostClassifier
+        MODEL = AdaBoostClassifier()
+
+        # Define the search space
+        space = {
+            'n_estimators': hp.choice('n_estimators', range(10,100)),
+            'learning_rate': hp.uniform('learning_rate', 0.01, 10),
+            'algorithm': hp.choice('algorithm', ['SAMME', 'SAMME.R']),
+            'random_state': hp.choice('random_state', [0]),
+        }
+
+    elif opt.model == 'GradientBoosting':
+        from sklearn.ensemble import GradientBoostingClassifier
+        MODEL = GradientBoostingClassifier()
+
+        # Define the search space
+        space = {
+            'loss': hp.choice('loss', ['deviance', 'exponential']),
+            'learning_rate': hp.uniform('learning_rate', 0.01, 10),
+            'n_estimators': hp.choice('n_estimators', range(10,300)),
+            'subsample': hp.uniform('subsample', 0.1, 1),
+            'criterion': hp.choice('criterion',
+                                 [{'criterion': 'friedman_mse'},
+                                  {'criterion': 'mse'},
+                                  {'criterion': 'mae'}]),
+            'min_samples_split': hp.choice('min_samples_split', range(2,10)),
+            'min_samples_leaf': hp.choice('min_samples_leaf', range(1, 10)),
+            'min_weight_fraction_leaf': hp.uniform('min_weight_fraction_leaf', 0, 0.5),
+            'max_depth': hp.choice('max_depth', range(1,30)),
+            'max_features': hp.choice('max_features', ['auto', 'log2', None]),
+            'random_state': hp.choice('random_state', [0]),
+            'min_impurity_decrease': hp.uniform('min_impurity_decrease', 0, 0.5),
+        }
+
+    elif opt.model == 'XGBoost':
+        import xgboost
+
+        MODEL = xgboost.XGBClassifier()
+
+        # Define the search space
+        space = {
+            'booster': hp.choice('booster',
+                                 [{'booster': 'gbtree', 'subsample': hp.uniform('tree_subsample', 0.5, 1)},
+                                  {'booster': 'dart', 'subsample': hp.uniform('dart_subsample', 0.5, 1)}]),
+            'learning_rate': hp.loguniform('eta', np.log(0.01), np.log(0.5)),
+            'gamma': hp.uniform('gamma', 0.0, 10),
+            'max_depth': hp.quniform('max_depth', 1, 20, 1),
+            'min_child_weight': hp.uniform('min_child_weight', 0, 10),
+            'scale_pos_weight': hp.uniform('scale_pos_weight', 1, 100),
+            'n_estimators': hp.quniform('n_estimators', 1, 200, 1),
+            'colsample_bytree': hp.uniform('colsample_by_tree', 0.5, 1.0),
+        }
         
     elif opt.model == 'MLP':
         from sklearn.neural_network import MLPClassifier

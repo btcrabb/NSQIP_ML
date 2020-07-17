@@ -69,22 +69,26 @@ def evaluate(results, name):
     return hyp_df
 
 
-def main(argv):
+def main(**kwargs):
 
-    parser = argparse.ArgumentParser(description='Optimize Hyperparameters')
-    parser.add_argument('--outdir', '-o', type=str, required=False,
-                        default='../../reports/optimization/',
-                        help='the directory to save all generated figures and files')
-    parser.add_argument('--results', '-r', type=str, required=False,
-                        default='../../reports/optimization/bayes_test.csv',
-                        help='the results.csv file')
+    if not kwargs:
+        parser = argparse.ArgumentParser(description='Optimize Hyperparameters')
+        parser.add_argument('--outdir', '-o', type=str, required=False,
+                            default='../../reports/optimization/',
+                            help='the directory to save all generated figures and files')
+        parser.add_argument('--results', '-r', type=str, required=False,
+                            default='../../reports/optimization/bayes_test.csv',
+                            help='the results.csv file')
 
-    args = parser.parse_args()
-    
+        args = parser.parse_args()
 
-    # Parse arguments
-    OUT_FILE = args.outdir
-    RESULTS = args.results
+
+        # Parse arguments
+        OUT_FILE = args.outdir
+        RESULTS = args.results
+    else:
+        OUT_FILE = kwargs.get('out_file')
+        RESULTS = kwargs.get('results')
     
     bayes_results = pd.read_csv(RESULTS).sort_values('score', ascending = False).reset_index()
     bayes_params = evaluate(bayes_results, name = 'Bayesian').infer_objects()
@@ -119,6 +123,4 @@ def main(argv):
     
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
-
-
+    main()
