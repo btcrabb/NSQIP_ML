@@ -8,16 +8,15 @@ import sys
 import os
 import sklearn
 from collections import MutableMapping
+from src.util import util
+from src.options.optimization_options import OptimizationOptions
 
 # Modeling
-import lightgbm as lgb
-import xgboost
 from sklearn import model_selection
 
 # Evaluation of the model
 from sklearn.model_selection import KFold, train_test_split
 from sklearn.metrics import roc_auc_score
-from sklearn.metrics import accuracy_score, make_scorer
 
 # Visualization
 import matplotlib.pyplot as plt
@@ -35,7 +34,6 @@ from hyperopt import fmin
 
 from sklearn.utils.testing import ignore_warnings
 from sklearn.exceptions import ConvergenceWarning
-
 
 
 @ignore_warnings(category=ConvergenceWarning)
@@ -142,25 +140,15 @@ def evaluate(results, name):
 
 def optimize(space):
 
-    features = pd.read_csv('../../data/processed/NSQIP_Clean2.csv')
-    #limfeats = ['READMISSION1','RETURNOR', 'PRBUN', 'PRSODM', 'PRINR', 'OPTIME', 'PRPTT', 'AGE', 'PRCREAT', 'BLEEDIS_1.0', 'PRPLATE', 'WTLOSS', 'PRPT', 'SMOKE']
-    #features = features[limfeats]
-    features['AGE'].replace(np.NaN, features['AGE'].median(), inplace=True)
-    features = features.dropna()
-
-    # Extract the labels
-    labels = np.array(features['READMISSION1'].astype(np.int32)).reshape((-1, ))
-    features = features.drop(columns = ['READMISSION1', 'Unnamed: 0', 'index.1', 'index'])
-
-    features.columns = ["".join (c if c.isalnum() else "_" for c in str(x)) for x in features.columns]
-
     # Split into training and testing data
     global train_features
     global test_features
     global train_labels
     global test_labels
 
-    train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size = 300, random_state = 0)
+    train_features, test_features, train_labels, test_labels = util.load_train_and_test(DATASET_PATH)
+
+    print(train_features.head(10))
 
     print('Train shape: ', train_features.shape)
     print('Test shape: ', test_features.shape)
@@ -202,12 +190,12 @@ def optimize(space):
     bayes_results = evaluate(results, name = 'Bayesian').infer_objects()
     best_bayes_params = bayes_results.iloc[bayes_results['score'].idxmax(), :].copy()
 
-    # Dataframe of just scores
+    # DataFrame of just scores
     scores = pd.DataFrame({'{}'.format(METRIC): bayes_results['score'], 'iteration': bayes_results['iteration'], 'search': 'Bayesian'})
 
     scores['{}'.format(METRIC)] = scores['{}'.format(METRIC)].astype(np.float32)
     scores['iteration'] = scores['iteration'].astype(np.int32)
-	
+
     # Plot of scores over the course of searching
     sns.lmplot('iteration', '{}'.format(METRIC), hue = 'search', data = scores, aspect = 2, scatter_kws={"s": 5});
     plt.scatter(best_bayes_params['iteration'], best_bayes_params['score'], marker = '*', s = 200, c = 'orange', edgecolor = 'k')
@@ -235,27 +223,9 @@ def flatten(d, parent_key ='', sep ='_'):
     return dict(items)
 
 
-def main(argv):
+def main():
 
-    parser = argparse.ArgumentParser(description='Optimize Hyperparameters')
-    parser.add_argument('--max_evals', '-e', type=int, required=False, default=10,
-                        help='the maximun number of evaluations to run')
-    parser.add_argument('--continue_opt', '-c', type=int, required=False, default=0,
-                        help='continue optimization from previous trials')
-    parser.add_argument('--n_folds', '-n', type=int, required=False, default=5,
-                        help='the number of cross validation folds')
-    parser.add_argument('--outfile', '-o', type=str, required=False,
-                        default='../../reports/optimization/{}_bayes_test.csv'.format(date.today()),
-                        help='the number of cross validation folds')
-    parser.add_argument('--metric', '-s', type=str, required=False,
-                        default='balanced_accuracy_score',
-                        help='the metric used to assess cross validation performance')
-    parser.add_argument('--model', '-m', type=str, required=False,
-                        default='SVC',
-                        help='the model to optimize')
-
-    args = parser.parse_args()
-    
+    opt = OptimizationOptions().parse()
 
     # Governing choices for search
     global MAX_EVALS
@@ -263,15 +233,19 @@ def main(argv):
     global CONTINUE
     global OUT_FILE
     global METRIC
+    global DATASET_PATH
 
-    MAX_EVALS = args.max_evals
-    N_FOLDS = args.n_folds
-    CONTINUE = args.continue_opt
-    OUT_FILE = args.outfile
-    METRIC = args.metric
+    MAX_EVALS = opt.max_evals
+    N_FOLDS = opt.n_folds
+    CONTINUE = opt.continue_opt
+    OUT_FILE = opt.outfile
+    METRIC = opt.metric
+    DATASET_PATH = opt.dataset_path
     
     global MODEL
-    if args.model == 'SVC':
+    if opt.model == 'SVC':
+
+        # load SVC model
         from sklearn.svm import SVC
         MODEL = SVC()
         
@@ -287,10 +261,10 @@ def main(argv):
             'tol': hp.uniform('tol', 0.0000000001, 0.01)
         }
 
-    elif args.model == 'DecisionTreeClassifier':
+    elif opt.model == 'DecisionTreeClassifier':
         MODEL = sklearn.tree.DecisionTreeClassifier()
         
-    elif args.model == 'MLP':
+    elif opt.model == 'MLP':
         from sklearn.neural_network import MLPClassifier
         
         MODEL = MLPClassifier()
@@ -338,6 +312,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
-
-
+    main()
