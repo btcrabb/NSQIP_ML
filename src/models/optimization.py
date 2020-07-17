@@ -197,11 +197,11 @@ def optimize(space):
     # DataFrame of just scores
     scores = pd.DataFrame({'{}'.format(METRIC): bayes_results['score'], 'iteration': bayes_results['iteration'], 'search': 'Bayesian'})
 
-    scores['{}'.format(METRIC)] = scores['{}'.format(METRIC)].astype(np.float32)
-    scores['iteration'] = scores['iteration'].astype(np.int32)
+    scores['{}'.format(METRIC)] = scores['{}'.format(METRIC)].astype(np.float)
+    scores['iteration'] = scores['iteration'].astype(np.int)
 
     # Plot of scores over the course of searching
-    sns.lmplot('iteration', '{}'.format(METRIC), hue = 'search', data = scores, aspect = 2, scatter_kws={"s": 5});
+    sns.lmplot('iteration', '{}'.format(METRIC), hue = 'search', data = scores, aspect = 2, scatter_kws={"s": 5})
     plt.scatter(best_bayes_params['iteration'], best_bayes_params['score'], marker = '*', s = 200, c = 'orange', edgecolor = 'k')
     plt.xlabel('Iteration'); plt.ylabel('{}'.format(METRIC))
     plt.savefig(OUT_FILE.rstrip('.csv') + '_SCORES.png')
@@ -385,7 +385,7 @@ def main(**kwargs):
         # Define the search space
         space = {
             'hidden_layer_sizes': hp.choice('hidden_layer_sizes', layers),
-            #'hidden_layer_sizes': hp.choice('hidden_layer_sizes', range(2, 100, 1)),
+            # 'hidden_layer_sizes': hp.choice('hidden_layer_sizes', range(2, 100, 1)),
             'activation': hp.choice('activation', ['identity', 'logistic', 'tanh', 'relu']),
             'solver': hp.choice('solver', [{'solver': 'lbfgs'},
                                            {'solver': 'sgd', 

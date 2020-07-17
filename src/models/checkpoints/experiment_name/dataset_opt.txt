@@ -9,5 +9,5 @@
                   n_folds: 5                             
                      name: experiment_name               
               num_threads: 4                             
-                  outfile: ../../reports/optimization/2020-07-16_bayes_test.csv
+                  outfile: ../../reports/optimization/2020-07-17_bayes_test.csv
 ----------------- End -------------------

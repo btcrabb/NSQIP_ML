@@ -101,7 +101,7 @@ def main(**kwargs):
     
     best_bayes_params = bayes_params.iloc[bayes_params['score'].idxmax(), :].copy()
     
-    hypers = bayes_params.select_dtypes(include=[np.number]).columns.drop('score', 'iteration').values
+    hypers = bayes_params.select_dtypes(include=[np.number]).columns.drop(['score', 'iteration']).values
     rows = int(np.ceil(len(hypers)/4))
 
     # Plot of scores over the course of searching
