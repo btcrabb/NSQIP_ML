@@ -11,8 +11,8 @@ class DatasetOptions(BaseOptions):
 
         # raw data options
         parser.add_argument('--input_file', required=True, help='the raw data (should be .csv or .xlsx file')
-        parser.add_argument('--output_file', type=str, default = '../../data/processed/NSQIP_processed.csv', help='path to save the output file')
-        parser.add_argument('--train_test_datasets_path', type=str, default='../../data/split/',
+        parser.add_argument('--output_file', type=str, default = 'data/processed/NSQIP_processed.csv', help='path to save the output file')
+        parser.add_argument('--train_test_datasets_path', type=str, default='data/split/',
                             help='path to the directory to save training and testing split datasets')
 
         # features to include
