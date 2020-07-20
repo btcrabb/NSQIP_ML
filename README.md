@@ -85,16 +85,16 @@ To see a complete list of available options, run:
 
 By default, a complete dataset will be generated in data/processed/NSQIP_processed.csv. Furthermore, datasets containing the training features, training labels, testing features, and testing labels will be saved in data/split/ as follows:
 
-├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   ├── raw            <- The original, immutable data dump.
-    |   └── split
-              ├── test_features.csv
-              ├── test_labels.csv
-              ├── train_features.csv
-              └── train_labels.csv
+    ├── data
+        │   ├── external       <- Data from third party sources.
+        │   ├── interim        <- Intermediate data that has been transformed.
+        │   ├── processed      <- The final, canonical data sets for modeling.
+        │   ├── raw            <- The original, immutable data dump.
+        |   └── split
+                  ├── test_features.csv
+                  ├── test_labels.csv
+                  ├── train_features.csv
+                  └── train_labels.csv
              
 ### Running Bayesian Parameter Optimization
 
@@ -119,4 +119,120 @@ An example from the optimization of a multi-layered perceptron (MLP) can be seen
 ![Momentum.](./reports/optimization/MLP/momentum_by_iteration.png "Momentum by Iteration")
 ![Scores.](./reports/optimization/MLP/scores_by_iteration.png "Balanced Accuracy Score by Iteration")
 
+### ROC AUC Curve Comparison (python scripts in progress)
 
+A comparison of the ROC curves, with AUC scores, for each optimized algorithm can currently be accomplished using the 2.6-BTC-roc_auc_curves.ipynb Jupyter notebook. The results from this notebook, for algorithms that have currently been optimized can be seen below. Confidence intervals for the AUC scores are calculated via bootstrapping. 
+
+![ROC Scores.](./reports/figures/ROC_AUC_comparison.png "ROC AUC comparison")
+
+Currently, the best performance was achieved by the SVC and Random Forest algorithms. Additional performance metrics for these algorithms are shown below:
+
+    SVC(C=0.13869718045614998, break_ties=False, cache_size=200,
+        class_weight='balanced', coef0=0.0, decision_function_shape='ovr', degree=3,
+        gamma='scale', kernel='linear', max_iter=-1, probability=True,
+        random_state=None, shrinking=True, tol=0.003993171050079279, verbose=False)
+                  precision    recall  f1-score   support
+
+               0       0.95      0.80      0.87       270
+               1       0.26      0.63      0.37        30
+
+        accuracy                           0.78       300
+       macro avg       0.61      0.72      0.62       300
+    weighted avg       0.88      0.78      0.82       300
+
+    216, 54, 11, 19
+
+    Sensitivity: 0.6333333333333333
+    Specificity: 0.8
+    PPV: 0.2602739726027397
+    NPV: 0.9515418502202643
+    
+    RandomForestClassifier(bootstrap=True, ccp_alpha=0.0,
+                       class_weight='balanced_subsample', criterion='gini',
+                       max_depth=None, max_features='log2', max_leaf_nodes=None,
+                       max_samples=None,
+                       min_impurity_decrease=0.008135280338330211,
+                       min_impurity_split=None, min_samples_leaf=6,
+                       min_samples_split=6,
+                       min_weight_fraction_leaf=0.04357678838454903,
+                       n_estimators=253, n_jobs=8, oob_score=False,
+                       random_state=0, verbose=0, warm_start=False)
+              precision    recall  f1-score   support
+
+           0       0.93      0.87      0.90       270
+           1       0.25      0.40      0.31        30
+
+    accuracy                           0.82       300
+    macro avg       0.59      0.63      0.60       300
+    weighted avg       0.86      0.82      0.84       300
+
+    234, 36, 18, 12
+
+    Sensitivity: 0.4
+    Specificity: 0.8666666666666667
+    PPV: 0.25
+    NPV: 0.9285714285714286
+
+### Permutation Feature Analysis (python scripts in progress)
+
+A permutation analysis to identify the most important features can be accomplished using the 2.5-BTC-permutations.ipynb Jupyter notebook. Shown below is the complete permutation analysis for currently included variables, from most to least important. Negative values indicate high feature importance. Positive values may indicate that the inclusion of this feature is actually hurting algorithm performance. 
+
+    RETURNOR_Yes                                             -0.384822
+    PRSODM                                                   -0.281458
+    BMI                                                      -0.134625
+    PRPTT                                                    -0.134017
+    TOTHLOS                                                  -0.128810
+    PRBUN                                                    -0.096114
+    PRCREAT                                                  -0.087605
+    PRPLATE                                                  -0.082976
+    OPTIME                                                   -0.063349
+    AGE                                                      -0.037792
+    PRALBUM                                                  -0.037310
+    PRINR                                                    -0.030967
+    RACE_NEW_White                                           -0.026444
+    ASACLAS_3_Severe_Disturb                                 -0.023277
+    HYPERMED_Yes                                             -0.020323
+    SEX_male                                                 -0.019657
+    ASACLAS_2_Mild_Disturb                                   -0.018632
+    SMOKE_Yes                                                -0.018173
+    RACE_NEW_Black_or_African_American                       -0.016183
+    DISCHDEST_Home                                           -0.012090
+    PRPT                                                     -0.010284
+    STEROID_Yes                                              -0.009741
+    DIABETES_NON_INSULIN                                     -0.007751
+    BLEEDIS_No                                               -0.006718
+    DISCHDEST_Unknown                                        -0.006274
+    WTLOSS_Yes                                               -0.005823
+    BLEEDIS_Unknown                                          -0.005578
+    RACE_NEW_Unknown_Not_Reported                            -0.004966
+    DYSPNEA_No                                               -0.004713
+    ASACLAS_Unknown                                          -0.003581
+    ASACLAS_None_assigned                                    -0.003390
+    ETHNICITY_HISPANIC_N                                     -0.003153
+    ETHNICITY_HISPANIC_U                                     -0.002885
+    DIABETES_NO                                              -0.002288
+    ASACLAS_1_No_Disturb                                     -0.002257
+    DYSPNEA_MODERATE_EXERTION                                -0.001813
+    DIABETES_INSULIN                                         -0.001385
+    RACE_NEW_American_Indian_or_Alaska_Native                -0.001377
+    TRANST_Not_transferred__admitted_from_home_              -0.001377
+    TRANST_Transfer_from_other                               -0.000819
+    TRANST_Outside_emergency_department                      -0.000773
+    BLEEDIS_Yes                                              -0.000742
+    EMERGNCY_Yes                                             -0.000620
+    PRSEPIS_None                                             -0.000566
+    DISCHDEST_Rehab                                          -0.000214
+    RACE_NEW_Native_Hawaiian_or_Pacific_Islander             -0.000145
+    DYSPNEA_AT_REST                                          -0.000061
+    TRANST_Unknown                                           -0.000046
+    PRSEPIS_Sepsis                                           -0.000015
+    DISCANCR_Yes                                             -0.000008
+    WNDINF_Yes                                                0.000000
+    TRANST_From_acute_care_hospital_inpatient                 0.000145
+    ASACLAS_4_Life_Threat                                     0.000344
+    PRSEPIS_SIRS                                              0.000413
+    HXCOPD_Yes                                                0.000543
+    ETHNICITY_HISPANIC_Y                                      0.000765
+    TRANST_Nursing_home___Chronic_care___Intermediate_care    0.001553
+    DISCHDEST_Skilled_Care__Not_Home                          0.003543
+    RACE_NEW_Asian                                            0.004813
