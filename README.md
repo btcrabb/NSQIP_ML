@@ -103,7 +103,28 @@ To run the optimization for the Suppert Vector Classifier (SVC) for 1000 iterati
 
 `nsqip_pituitary>python src/models/optimization.py --model SVC --max_evals 1000`
 
-This script will record each trail and save all results to reports/optimization/ by default. The optimization can be continued for additional tuning if desired using the --continue_opt = 1 command line flag. 
+The output will look something like the following:
+
+    ----------------- Options ---------------
+              checkpoints_dir: ./checkpoints
+                 continue_opt: 0
+                 dataset_path: data/split/
+                      gpu_ids: -1
+                    max_evals: 10                                   [default: 5000]
+                       metric: balanced_accuracy_score
+                        model: SVC
+                      n_folds: 5
+                         name: experiment_name
+                  num_threads: 4
+                      outfile: reports/optimization/2020-07-20_bayes_test.csv
+    ----------------- End -------------------
+    100%|███████████████████████████████████████████████| 10/10 [00:18<00:00,  1.81s/trial, best loss: 0.40362455962455956]
+    The highest cross validation score from Bayesian was 0.59638 found on iteration 3.
+    Optimal Hyperparameters: {'C': 5.554313452624174, 'class_weight': 'balanced', 'kernel': 'linear', 'tol': 0.0023771944076088633}
+    ROC AUC from Bayesian on test data = 0.73037.
+    Optimization Complete
+
+This script will record each trial and save all results to reports/optimization/ by default. The optimization can be continued for additional tuning if desired using the --continue_opt = 1 command line flag. 
 
 Multiple algorithms can be optimized sequentially using the file src/models/optimize_multiple.py. The algorithms to optimize are specified at the start of this script and can be edited manually. 
 
