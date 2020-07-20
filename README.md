@@ -63,13 +63,13 @@ Project Organization
 
 All of the necessary python packages can be installed using either conda or pip. To install necessary packages with pip, enter the following in the command line:
 
-'> pip install -r requirements.txt' (Python 2) OR
-'> pip3 install -r requirements.txt' (Python 3)
+`> pip install -r requirements.txt` (Python 2) OR
+`> pip3 install -r requirements.txt` (Python 3)
 
 To install the necessary packages using Conda, use the following commands to create a Conda virtual environment with all of the necessary packages:
 
-'>conda env create -f environment.yml'
+`>conda env create -f environment.yml`
 
 The environment will be name NSQIP, and you can activate it by typing:
 
-'>conda activate NSQIP'
+`>conda activate NSQIP`
