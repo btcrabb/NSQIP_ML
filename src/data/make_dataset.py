@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
+import sys
+import os.path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 import logging
 from pathlib import Path
-from src.options.dataset_options import DatasetOptions
+from options.dataset_options import DatasetOptions
 import pandas as pd
 import numpy as np
-import sklearn
 from sklearn.model_selection import train_test_split
 import sklearn.preprocessing as preprocessing
 

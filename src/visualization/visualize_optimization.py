@@ -1,39 +1,12 @@
 # Data manipulation
 import pandas as pd
 import numpy as np
-from datetime import date
 import argparse
-import pickle
-import sys
-import os
-import sklearn
-from collections import MutableMapping
-
-# Modeling
-import lightgbm as lgb
-import xgboost
-from sklearn import model_selection
-
-# Evaluation of the model
-from sklearn.model_selection import KFold, train_test_split
-from sklearn.metrics import roc_auc_score
-from sklearn.metrics import accuracy_score, make_scorer
 
 # Visualization
 import matplotlib.pyplot as plt
 import seaborn as sns
-import csv
 import ast
-
-# Optimization
-from hyperopt import STATUS_OK
-from timeit import default_timer as timer
-from hyperopt import hp
-from hyperopt.pyll.stochastic import sample
-from hyperopt import tpe
-from hyperopt import Trials
-from hyperopt import fmin
-
 
 def evaluate(results, name):
     """Return dataframe of hyperparameters"""

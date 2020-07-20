@@ -1,6 +1,11 @@
-from src.models import optimization
-from src.visualization import visualize_optimization
-from src.util import util
+import sys
+import os.path
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+from models import optimization
+from visualization import visualize_optimization
+from util import util
 from datetime import date
 
 def main():

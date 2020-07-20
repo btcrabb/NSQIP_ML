@@ -1,6 +1,11 @@
 import argparse
 import os
-from src.util import util
+
+import sys
+import os.path
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from util import util
 
 class BaseOptions:
     """This class defines options used during both training and test time.
