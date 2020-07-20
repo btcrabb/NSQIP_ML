@@ -90,11 +90,11 @@ By default, a complete dataset will be generated in data/processed/NSQIP_process
         │   ├── interim        <- Intermediate data that has been transformed.
         │   ├── processed      <- The final, canonical data sets for modeling.
         │   ├── raw            <- The original, immutable data dump.
-        |   └── split
-                  ├── test_features.csv
-                  ├── test_labels.csv
-                  ├── train_features.csv
-                  └── train_labels.csv
+        |   └── split          <- The dataset split into training and testing datasets.
+                |    ├── test_features.csv
+                |    ├── test_labels.csv
+                |    ├── train_features.csv
+                |    └── train_labels.csv
              
 ### Running Bayesian Parameter Optimization
 
@@ -138,7 +138,7 @@ An example from the optimization of a multi-layered perceptron (MLP) can be seen
 
 ![Learning Rate.](./reports/optimization/MLP/learning_rate_init_by_iteration.png "Learning Rate by Iteration")
 ![Momentum.](./reports/optimization/MLP/momentum_by_iteration.png "Momentum by Iteration")
-![Scores.](./reports/optimization/MLP/scores_by_iteration.png "Balanced Accuracy Score by Iteration")
+![Scores.](./reports/optimization/MLP/2020-07-16_bayes_test_SCORES.png "Balanced Accuracy Score by Iteration")
 
 ### ROC AUC Curve Comparison (python scripts in progress)
 
