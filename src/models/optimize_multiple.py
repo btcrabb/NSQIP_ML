@@ -26,13 +26,13 @@ def main():
         optimization.main(model=model)
 
         # visualize the results
-        out_file = '../../reports/optimization/{}/'.format(model)
-        results = '../../reports/optimization/{}/{}_bayes_test.csv'.format(model, today)
+        out_file = 'reports/optimization/{}/'.format(model)
+        results = 'reports/optimization/{}/{}_bayes_test.csv'.format(model, today)
 
         visualize_optimization.main(results=results, out_file=out_file)
 
     # save all models to disk
-    util.save_models('../../reports/optimization/')
+    util.save_models('models/')
 
 if __name__ == "__main__":
     main()

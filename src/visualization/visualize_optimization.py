@@ -47,10 +47,10 @@ def main(**kwargs):
     if not kwargs:
         parser = argparse.ArgumentParser(description='Optimize Hyperparameters')
         parser.add_argument('--outdir', '-o', type=str, required=False,
-                            default='../../reports/optimization/',
+                            default='reports/optimization/',
                             help='the directory to save all generated figures and files')
         parser.add_argument('--results', '-r', type=str, required=False,
-                            default='../../reports/optimization/bayes_test.csv',
+                            default='reports/optimization/bayes_test.csv',
                             help='the results.csv file')
 
         args = parser.parse_args()

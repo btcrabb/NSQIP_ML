@@ -5,10 +5,9 @@
                   gpu_ids: -1                            
                input_file: ../../data/raw/Pittumor_data.csv	[default: None]
                     label: READMISSION1                  
-         max_dataset_size: inf                           
-                    model: SVC                           
                      name: experiment_name               
                    no_bmi: False                         
+        no_encode_unknown: False                         
              no_normalize: False                         
       no_train_test_split: False                         
               num_threads: 4                             

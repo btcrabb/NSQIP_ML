@@ -1,3 +1,8 @@
+import sys
+import os.path
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 # Data manipulation
 import pandas as pd
 import numpy as np
@@ -8,8 +13,8 @@ import sys
 import os
 import sklearn
 from collections import MutableMapping
-from src.util import util
-from src.options.optimization_options import OptimizationOptions
+from util import util
+from options.optimization_options import OptimizationOptions
 
 # Modeling
 from sklearn import model_selection
