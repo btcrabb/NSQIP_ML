@@ -146,7 +146,62 @@ A comparison of the ROC curves, with AUC scores, for each optimized algorithm ca
 
 ![ROC Scores.](./reports/figures/ROC_AUC_comparison.png "ROC AUC comparison")
 
-Currently, the best performance was achieved by the SVC and Random Forest algorithms. Additional performance metrics for these algorithms are shown below:
+Currently, the best performance was achieved by the SVC, LogisticRegression, and Random Forest algorithms. Additional performance metrics for these algorithms are shown below:
+
+    LogisticRegression(C=6.8786446082731025, class_weight='balanced', dual=False,
+                       fit_intercept=True, intercept_scaling=1, l1_ratio=None,
+                       max_iter=120, multi_class='ovr', n_jobs=8, penalty='none',
+                       random_state=0, solver='sag', tol=0.002870818059540498,
+                       verbose=0, warm_start=False)
+                  precision    recall  f1-score   support
+
+               0       0.94      0.74      0.83       270
+               1       0.20      0.60      0.31        30
+
+        accuracy                           0.73       300
+       macro avg       0.57      0.67      0.57       300
+    weighted avg       0.87      0.73      0.78       300
+
+    Confusion Matrix:
+    Predicted   0    1
+    Actual            
+    0          200  70
+    1           12  18
+
+    Sensitivity: 0.6
+    Specificity: 0.7407407407407407
+    PPV: 0.20454545454545456
+    NPV: 0.9433962264150944
+
+    RandomForestClassifier(bootstrap=True, ccp_alpha=0.0,
+                           class_weight='balanced_subsample', criterion='gini',
+                           max_depth=None, max_features='log2', max_leaf_nodes=None,
+                           max_samples=None,
+                           min_impurity_decrease=0.008135280338330211,
+                           min_impurity_split=None, min_samples_leaf=6,
+                           min_samples_split=6,
+                           min_weight_fraction_leaf=0.04357678838454903,
+                           n_estimators=253, n_jobs=8, oob_score=False,
+                           random_state=0, verbose=0, warm_start=False)
+                  precision    recall  f1-score   support
+
+               0       0.93      0.87      0.90       270
+               1       0.25      0.40      0.31        30
+
+        accuracy                           0.82       300
+       macro avg       0.59      0.63      0.60       300
+    weighted avg       0.86      0.82      0.84       300
+
+    Confusion Matrix:
+    Predicted   0    1
+    Actual            
+    0          234  36
+    1           18  12
+
+    Sensitivity: 0.4
+    Specificity: 0.8666666666666667
+    PPV: 0.25
+    NPV: 0.9285714285714286
 
     SVC(C=0.13869718045614998, break_ties=False, cache_size=200,
         class_weight='balanced', coef0=0.0, decision_function_shape='ovr', degree=3,
@@ -161,38 +216,48 @@ Currently, the best performance was achieved by the SVC and Random Forest algori
        macro avg       0.61      0.72      0.62       300
     weighted avg       0.88      0.78      0.82       300
 
-    216, 54, 11, 19
+    Confusion Matrix:
+    Predicted   0    1
+    Actual            
+    0          216  54
+    1           11  19
 
     Sensitivity: 0.6333333333333333
     Specificity: 0.8
     PPV: 0.2602739726027397
     NPV: 0.9515418502202643
-    
-    RandomForestClassifier(bootstrap=True, ccp_alpha=0.0,
-                       class_weight='balanced_subsample', criterion='gini',
-                       max_depth=None, max_features='log2', max_leaf_nodes=None,
-                       max_samples=None,
-                       min_impurity_decrease=0.008135280338330211,
-                       min_impurity_split=None, min_samples_leaf=6,
-                       min_samples_split=6,
-                       min_weight_fraction_leaf=0.04357678838454903,
-                       n_estimators=253, n_jobs=8, oob_score=False,
-                       random_state=0, verbose=0, warm_start=False)
-              precision    recall  f1-score   support
 
-           0       0.93      0.87      0.90       270
-           1       0.25      0.40      0.31        30
+#### Notes on Linear Classifiers:
 
-    accuracy                           0.82       300
-    macro avg       0.59      0.63      0.60       300
-    weighted avg       0.86      0.82      0.84       300
+It's important to highlight here that the support vector machine classifier (SVC) is using a linear kernel as the basis function. It is unsuprising that logistic regression performs well also, since logistic regression is a linear model as well. Through the bayesian optimization process, the SVC with a linear kernel outperformed all other available kernel options (‘poly’, ‘rbf’, ‘sigmoid’, ‘precomputed’). It is possible for both logistic regression and the linear SVC to produce similar decision boundaries (thus similar performance) in this scenario. 
 
-    234, 36, 18, 12
+### Performance Characteristics Comparison (python scripts in progress)
 
-    Sensitivity: 0.4
-    Specificity: 0.8666666666666667
-    PPV: 0.25
-    NPV: 0.9285714285714286
+The 2.6-BTC-roc_auc_curves.ipynb Jupyter notebook can be used to produce a table of results, with and without bootstrapped confidence intervals, to compare each optimized algorithm. These tables are shown below:
+
+![](./reports/figures/performance_chars.png)
+
+### Bar Graphs with Confidence Intervals (python scripts in progress)
+
+For each performance characteristic, a bar graph can be generated showing the relative performance of each algorithm using the 2.6-BTC-roc_auc_curves.ipynb Jupyter notebook. A few examples are shown below:
+
+Sensitivity                |  Specificity               
+:-------------------------:|:-------------------------: 
+![](./reports/figures/bar_graphs/Sensitivity_bar_graph.png)   |  ![](./reports/figures/bar_graphs/Specificity_bar_graph.png)    
+
+PPV                         |    NPV
+:-------------------------: | :-------------------------:
+![](./reports/figures/bar_graphs/PPV_bar_graph.png) | ![](./reports/figures/bar_graphs/NPV_bar_graph.png)
+
+F1 Score                    |    ROC Curve AUC
+:-------------------------: | :-------------------------:
+![](./reports/figures/bar_graphs/F1-score_bar_graph.png) | ![](./reports/figures/bar_graphs/AUC_bar_graph.png)
+
+### Cohen's Kappa Scores for Classifier Agreement
+
+The Jupyter notebook 2.6-BTC-roc_auc_curves.ipynb can also produce a crosstab visualization of the Cohen's Kappa coefficients for all of the classifiers. Cohen's kappa coefficient (κ) is a statistic that is used to measure inter-rater reliability for categorical items. Some fairly arbitrary guidelines in the literature identify kappas over 0.75 as excellent, 0.40 to 0.75 as fair to good, and below 0.40 as poor [Fleiss, J.L. (1981). Statistical methods for rates and proportions (2nd ed.). New York: John Wiley].
+
+![](./reports/figures/cohens_kappa_scores.png)
 
 ### Permutation Feature Analysis (python scripts in progress)
 
