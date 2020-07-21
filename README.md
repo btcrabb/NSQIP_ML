@@ -235,14 +235,29 @@ It's important to highlight here that the support vector machine classifier (SVC
 
 The 2.6-BTC-roc_auc_curves.ipynb Jupyter notebook can be used to produce a table of results, with and without bootstrapped confidence intervals, to compare each optimized algorithm. These tables are shown below:
 
+![Performance Metrics](./reports/figures/performance_chars.png)
+
 ### Bar Graphs with Confidence Intervals (python scripts in progress)
 
 For each performance characteristic, a bar graph can be generated showing the relative performance of each algorithm using the 2.6-BTC-roc_auc_curves.ipynb Jupyter notebook. A few examples are shown below:
 
-Sensitivity                |  Specificity               |   PPV
-:-------------------------:|:-------------------------: | :-------------------------:
-![](./reports/figures/bar_graphs/Sensitivity_bar_graph.png)   |  ![](./reports/figures/bar_graphs/Specificity_bar_graph.png)    |   ![](./reports/figures/bar_graphs/PPV_bar_graph.png)
+Sensitivity                |  Specificity               
+:-------------------------:|:-------------------------: 
+![](./reports/figures/bar_graphs/Sensitivity_bar_graph.png)   |  ![](./reports/figures/bar_graphs/Specificity_bar_graph.png)    
 
+PPV                         |    NPV
+:-------------------------: | :-------------------------:
+![](./reports/figures/bar_graphs/PPV_bar_graph.png) | ![](./reports/figures/bar_graphs/NPV_bar_graph.png)
+
+F1 Score                    |    ROC Curve AUC
+:-------------------------: | :-------------------------:
+![](./reports/figures/bar_graphs/f1_score_bar_graph.png) | ![](./reports/figures/bar_graphs/AUC_bar_graph.png)
+
+### Cohen's Kappa Scores for Classifier Agreement
+
+The Jupyter notebook 2.6-BTC-roc_auc_curves.ipynb can also produce a crosstab visualization of the Cohen's Kappa coefficients for all of the classifiers. Cohen's kappa coefficient (κ) is a statistic that is used to measure inter-rater reliability for categorical items. Some fairly arbitrary guidelines in the literature identify kappas over 0.75 as excellent, 0.40 to 0.75 as fair to good, and below 0.40 as poor [Fleiss, J.L. (1981). Statistical methods for rates and proportions (2nd ed.). New York: John Wiley].
+
+![Cohen's Kappa coefficients](./reports/figures/cohens_kappa_scores.png "Cohen's Kappa coefficients)
 
 ### Permutation Feature Analysis (python scripts in progress)
 
