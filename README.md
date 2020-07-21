@@ -255,7 +255,7 @@ F1 Score                    |    ROC Curve AUC
 
 ### Cohen's Kappa Scores for Classifier Agreement
 
-The Jupyter notebook 2.6-BTC-roc_auc_curves.ipynb can also produce a crosstab visualization of the Cohen's Kappa coefficients for all of the classifiers. Cohen's kappa coefficient (κ) is a statistic that is used to measure inter-rater reliability for categorical items. Some fairly arbitrary guidelines in the literature identify kappas over 0.75 as excellent, 0.40 to 0.75 as fair to good, and below 0.40 as poor [Fleiss, J.L. (1981). Statistical methods for rates and proportions (2nd ed.). New York: John Wiley].
+The Jupyter notebook 2.6-BTC-roc_auc_curves.ipynb can also produce a crosstab visualization of the Cohen's Kappa coefficients for all of the classifiers. Cohen's kappa coefficient (κ) is a statistic that is used to measure inter-rater reliability for categorical items. Some fairly arbitrary guidelines in the literature identify kappas over 0.75 as excellent, 0.40 to 0.75 as fair to good, and below 0.40 as poor [Fleiss, J.L. (1981). Statistical methods for rates and proportions (2nd ed.). New York: John Wiley]. Below we see that both the linear models (SVC with linear kernel and Logistic Regression) have a high inter-rater reliability, indicating that they are producing similar predictions and likely have a similar decision boundary. 
 
 ![](./reports/figures/cohens_kappa_scores.png)
 
