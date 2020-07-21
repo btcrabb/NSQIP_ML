@@ -3,6 +3,11 @@ import os.path
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
+def warn(*args, **kwargs):
+    pass
+import warnings
+warnings.warn = warn
+
 # Data manipulation
 import pandas as pd
 import numpy as np
@@ -407,11 +412,38 @@ def main(**kwargs):
             'beta_1': hp.uniform('beta_1', 0.5, 0.9999),
             'beta_2': hp.uniform('beta_2', 0.9, 0.99999)
         }
+
+    elif opt.model == 'LogisticRegression':
+        from sklearn.linear_model import LogisticRegression
+
+        MODEL = LogisticRegression()
+
+        # Define the search space
+        space = {
+            'solver': hp.choice('solver',
+                                [{'solver': 'newton-cg',
+                                    'penalty': hp.choice('newton_penalty', ['l2', 'none'])},
+                                {'solver': 'lbfgs',
+                                    'penalty': hp.choice('lbfgs_penalty', ['l2', 'none'])},
+                                {'solver': 'liblinear',
+                                    'penalty': hp.choice('linear_penalty', ['l1', 'l2'])},
+                                {'solver': 'sag',
+                                    'penalty': hp.choice('sag_penalty', ['l2', 'none'])},
+                                {'solver': 'saga',
+                                    'penalty': hp.choice('saga_penalty', ['l1', 'l2', 'elasticnet', 'none'])}]),
+            'tol': hp.uniform('tol', 0.0000001, 0.1),
+            'C': hp.uniform('C', 0.1, 10),
+            'fit_intercept': hp.choice('fit_intercept', [True, False]),
+            'class_weight': hp.choice('class_weight', ['balanced', None]),
+            'random_state': hp.choice('random_state', [0]),
+            'max_iter': hp.choice('max_iter', range(1, 1000)),
+            'multi_class': hp.choice('multi_class', ['ovr']),
+            'n_jobs': hp.choice('n_jobs', [8])
+        }
         
     else:
         print('Unknown model')
         exit
-    
 
     optimize(space)
 
