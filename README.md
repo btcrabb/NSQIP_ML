@@ -58,6 +58,17 @@ Project Organization
 
 
 ## Getting Started
+### Cloning the Repository
+To download the repository, enter the following in the command line prompt:
+`> git clone https://github.com/btcrabb/nsqip_pituitary`
+`> cd nsqip_pituitary`
+
+Alternatively, you can download the repository as a zip file directly from the webpage. For secuirity reasons, the raw dataset is not included in the github repository. Make a new directory called /data/raw, as shown in the project outline above and below and copy the dataset (in .csv or .xlsx format) into this folder.
+
+    ├── data                                <- Create new data folder.
+           └── raw                          <- Create new data/raw folder.
+                 └── dataset.csv            <- Save the dataset here in .csv format.
+
 
 ### Installing necessary packages
 
