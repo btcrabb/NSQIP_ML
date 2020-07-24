@@ -5,6 +5,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import logging
 from pathlib import Path
+from util import mkdir
 from options.dataset_options import DatasetOptions
 import pandas as pd
 import numpy as np
@@ -96,7 +97,11 @@ def main():
     # recombine categorical and numerical dataframes
     final_df = pd.concat([objects, stand_dataset], axis=1)
     final_df[opt.label] = label
-
+	
+	# check if data directory exists, create if not:
+    util.mkdir(os.path.dirname(opt.output_file))
+    util.mkdir(os.path.dirname(opt.train_test_datasets_path))
+        
     # save to csv
     final_df.to_csv(opt.output_file)
 
