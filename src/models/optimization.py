@@ -244,7 +244,7 @@ def main(**kwargs):
     else:
         opt = OptimizationOptions().parse()
         opt.model = kwargs.get('model')
-        opt.outfile = '../../reports/optimization/{}/{}_bayes_test.csv'.format(opt.model, date.today())
+        opt.outfile = 'reports/optimization/{}/{}_bayes_test.csv'.format(opt.model, date.today())
 
         print('Running optimization for {}'.format(opt.model))
 
