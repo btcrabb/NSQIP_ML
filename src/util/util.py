@@ -3,6 +3,7 @@ from __future__ import print_function
 import pandas as pd
 import pickle
 import os
+import ast
 
 def mkdirs(paths):
     """create empty directories if they don't exist
@@ -87,7 +88,7 @@ def save_models(dirName):
                 fileList.append(os.path.join(dirpath, file))
 
     # load datasets
-    train_features, train_labels, test_features, test_labels = load_train_and_test('../../data/split/')
+    train_features, train_labels, test_features, test_labels = load_train_and_test('data/split/')
 
     for file in fileList:
         # load hyperparameter optimization files
@@ -113,7 +114,7 @@ def save_models(dirName):
         model.fit(train_features, train_labels)
 
         # create output filename
-        new_dir = '../models/'
+        new_dir = 'models/'
         filename = new_dir + model_name + '.sav'
 
         # save the trained model

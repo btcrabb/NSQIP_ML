@@ -32,7 +32,7 @@ def main():
         visualize_optimization.main(results=results, out_file=out_file)
 
     # save all models to disk
-    util.save_models('models/')
+    util.save_models('reports/optimization/')
 
 if __name__ == "__main__":
     main()
