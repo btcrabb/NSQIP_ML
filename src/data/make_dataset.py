@@ -5,7 +5,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import logging
 from pathlib import Path
-from util import mkdir
+from util import util
 from options.dataset_options import DatasetOptions
 import pandas as pd
 import numpy as np

@@ -11,12 +11,7 @@ from datetime import date
 def main():
     models_list = [
         'SVC',
-        'MLP',
-        'XGBoost',
-        'DecisionTree',
-        'AdaBoost',
-        'RandomForest',
-        'GradientBoosting'
+        'LogisticRegression'
     ]
 
     for model in models_list:
