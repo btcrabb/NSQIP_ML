@@ -163,84 +163,56 @@ The results from this script, for algorithms that have currently been optimized 
 
 Currently, the best performance was achieved by the SVC, LogisticRegression, and Random Forest algorithms. Additional performance metrics for these algorithms are shown below:
 
-    LogisticRegression(C=6.8786446082731025, class_weight='balanced', dual=False,
-                       fit_intercept=True, intercept_scaling=1, l1_ratio=None,
-                       max_iter=120, multi_class='ovr', n_jobs=8, penalty='none',
-                       random_state=0, solver='sag', tol=0.002870818059540498,
-                       verbose=0, warm_start=False)
+    LogisticRegression(C=8.959365576320842, class_weight='balanced', dual=False,
+                   fit_intercept=False, intercept_scaling=1, l1_ratio=None,
+                   max_iter=554, multi_class='ovr', n_jobs=8, penalty='l2',
+                   random_state=0, solver='newton-cg', tol=0.04087113898920076,
+                   verbose=0, warm_start=False)
                   precision    recall  f1-score   support
 
-               0       0.94      0.74      0.83       270
-               1       0.20      0.60      0.31        30
+               0       0.94      0.63      0.75       270
+               1       0.17      0.67      0.26        30
 
-        accuracy                           0.73       300
-       macro avg       0.57      0.67      0.57       300
-    weighted avg       0.87      0.73      0.78       300
-
-    Confusion Matrix:
-    Predicted   0    1
-    Actual            
-    0          200  70
-    1           12  18
-
-    Sensitivity: 0.6
-    Specificity: 0.7407407407407407
-    PPV: 0.20454545454545456
-    NPV: 0.9433962264150944
-
-    RandomForestClassifier(bootstrap=True, ccp_alpha=0.0,
-                           class_weight='balanced_subsample', criterion='gini',
-                           max_depth=None, max_features='log2', max_leaf_nodes=None,
-                           max_samples=None,
-                           min_impurity_decrease=0.008135280338330211,
-                           min_impurity_split=None, min_samples_leaf=6,
-                           min_samples_split=6,
-                           min_weight_fraction_leaf=0.04357678838454903,
-                           n_estimators=253, n_jobs=8, oob_score=False,
-                           random_state=0, verbose=0, warm_start=False)
-                  precision    recall  f1-score   support
-
-               0       0.93      0.87      0.90       270
-               1       0.25      0.40      0.31        30
-
-        accuracy                           0.82       300
-       macro avg       0.59      0.63      0.60       300
-    weighted avg       0.86      0.82      0.84       300
+        accuracy                           0.63       300
+       macro avg       0.55      0.65      0.51       300
+    weighted avg       0.87      0.63      0.70       300
 
     Confusion Matrix:
-    Predicted   0    1
-    Actual            
-    0          234  36
-    1           18  12
+    Predicted    0    1
+    Actual             
+    0          169  101
+    1           10   20
 
-    Sensitivity: 0.4
-    Specificity: 0.8666666666666667
-    PPV: 0.25
-    NPV: 0.9285714285714286
+    Sensitivity: 0.6666666666666666
+    Specificity: 0.6259259259259259
+    PPV: 0.1652892561983471
+    NPV: 0.9441340782122905
 
-    SVC(C=0.13869718045614998, break_ties=False, cache_size=200,
+
+    SVC(C=0.5976523522875594, break_ties=False, cache_size=200,
         class_weight='balanced', coef0=0.0, decision_function_shape='ovr', degree=3,
-        gamma='scale', kernel='linear', max_iter=-1, probability=True,
-        random_state=None, shrinking=True, tol=0.003993171050079279, verbose=False)
+        gamma='scale', kernel='rbf', max_iter=-1, probability=True,
+        random_state=None, shrinking=True, tol=0.0007629756258825445,
+        verbose=False)
                   precision    recall  f1-score   support
 
-               0       0.95      0.80      0.87       270
-               1       0.26      0.63      0.37        30
+               0       0.93      0.81      0.87       270
+               1       0.22      0.47      0.30        30
 
         accuracy                           0.78       300
-       macro avg       0.61      0.72      0.62       300
-    weighted avg       0.88      0.78      0.82       300
+       macro avg       0.58      0.64      0.58       300
+    weighted avg       0.86      0.78      0.81       300
 
     Confusion Matrix:
-    Predicted   0    1
+    Predicted    0   1
     Actual            
-    0          216  54
-    1           11  19
+    0          220  50
+    1           16  14
 
-    Sensitivity: 0.6333333333333333
-    Specificity: 0.8
-    PPV: 0.2602739726027397
-    NPV: 0.9515418502202643
+    Sensitivity: 0.4666666666666667
+    Specificity: 0.8148148148148148
+    PPV: 0.21875
+    NPV: 0.9322033898305084
 
 #### Notes on Linear Classifiers:
 
