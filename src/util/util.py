@@ -53,6 +53,7 @@ def load_model(name, hyperparameters):
     from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
     from sklearn.svm import SVC
     from xgboost import XGBClassifier
+    from sklearn.linear_model import LogisticRegression
 
     if name == 'AdaBoost':
         model = AdaBoostClassifier(**hyperparameters)
@@ -68,6 +69,8 @@ def load_model(name, hyperparameters):
         model = SVC(**hyperparameters, probability=True)
     elif name == 'XGBoost':
         model = XGBClassifier(**hyperparameters)
+    elif name == 'LogisticRegression':
+        model = LogisticRegression(**hyperparameters)
     else:
         print('Unkown model name')
 
@@ -95,9 +98,9 @@ def save_models(dirName):
         results = pd.read_csv(file)
 
         # find the model_name from the filename
-        file_split = file.split('/')[3]
+        file_split = file.split('/')[2]
         model_name = file_split.split('\\')[0]
-
+		
         new_results = results.copy()
 
         # String to dictionary
