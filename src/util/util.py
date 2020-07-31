@@ -95,8 +95,8 @@ def save_models(dirName):
         results = pd.read_csv(file)
 
         # find the model_name from the filename
-        file_split = file.split('/')[3]
-        model_name = file_split.split('\\')[0]
+        file_split = file.split('/')[2]
+        model_name = file_split.split('\')[0]
 
         new_results = results.copy()
 
