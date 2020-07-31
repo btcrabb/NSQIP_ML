@@ -68,6 +68,8 @@ def load_model(name, hyperparameters):
         model = SVC(**hyperparameters, probability=True)
     elif name == 'XGBoost':
         model = XGBClassifier(**hyperparameters)
+    elif name == 'LogisticRegression':
+        model = LogisticRegression(**hyperparameters)
     else:
         print('Unkown model name')
 
@@ -96,7 +98,7 @@ def save_models(dirName):
 
         # find the model_name from the filename
         file_split = file.split('/')[2]
-        model_name = file_split.split('\')[0]
+        model_name = file_split.split('\\')[0]
 
         new_results = results.copy()
 
