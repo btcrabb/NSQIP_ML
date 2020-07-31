@@ -153,9 +153,13 @@ An example from the optimization of a multi-layered perceptron (MLP) can be seen
 ![Momentum.](./reports/optimization/MLP/momentum_by_iteration.png "Momentum by Iteration")
 ![Scores.](./reports/optimization/MLP/2020-07-16_bayes_test_SCORES.png "Balanced Accuracy Score by Iteration")
 
-### ROC AUC Curve Comparison (python scripts in progress)
+### ROC AUC Curve Comparison 
 
-A comparison of the ROC curves, with AUC scores, for each optimized algorithm can currently be accomplished using the 2.6-BTC-roc_auc_curves.ipynb Jupyter notebook. The results from this notebook, for algorithms that have currently been optimized can be seen below. Confidence intervals for the AUC scores are calculated via bootstrapping. 
+A comparison of the ROC curves, with AUC scores, for each optimized algorithm can currently be accomplished using the src/visualization/roc_auc_curves.py python script. To run this script, enter the following in the command line:
+
+`nsqip_pituitary>python src/visualization/roc_auc_curves.py`
+
+The results from this script, for algorithms that have currently been optimized can be seen below. Confidence intervals for the AUC scores are calculated via bootstrapping. 
 
 ![ROC Scores.](./reports/figures/ROC_AUC_comparison.png "ROC AUC comparison")
 
