@@ -147,11 +147,9 @@ The results of the Bayesian parameter optimization can be visualized using the s
 
 `nsqip_pituitary>python src/visualization/visualize_optimization.py --results reports/optimization/<enter today's date in YYYY-MM-DD format>_bayes_test.csv`
 
-An example from the optimization of a multi-layered perceptron (MLP) can be seen below:
+An example from the optimization of the SVC can be seen below:
 
-![Learning Rate.](./reports/optimization/MLP/learning_rate_init_by_iteration.png "Learning Rate by Iteration")
-![Momentum.](./reports/optimization/MLP/momentum_by_iteration.png "Momentum by Iteration")
-![Scores.](./reports/optimization/MLP/2020-07-16_bayes_test_SCORES.png "Balanced Accuracy Score by Iteration")
+![Scores.](./reports/optimization/SVC/2020-07-31_bayes_test_SCORES.png "Balanced Accuracy Score by Iteration")
 
 ### ROC AUC Curve Comparison 
 
@@ -280,4 +278,4 @@ The Jupyter notebook 2.6-BTC-roc_auc_curves.ipynb can also produce a crosstab vi
 
 A permutation analysis to identify the most important features can be accomplished using the 2.5-BTC-permutations.ipynb Jupyter notebook. Shown below is the complete permutation analysis for currently included variables, from most to least important. Negative values indicate high feature importance. Positive values may indicate that the inclusion of this feature is actually hurting algorithm performance. 
 
-![](./reports/figures/permutations_bar_graph.png)
+![](./reports/figures/impurity_features_bar_graph.png)
