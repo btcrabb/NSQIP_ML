@@ -163,90 +163,205 @@ The results from this script, for algorithms that have currently been optimized 
 
 ![ROC Scores.](./reports/figures/ROC_AUC_comparison.png "ROC AUC comparison")
 
-Currently, the best performance was achieved by the SVC, LogisticRegression, and Random Forest algorithms. Additional performance metrics for these algorithms are shown below:
+Additional performance metrics for these algorithms are shown below:
 
-    LogisticRegression(C=6.8786446082731025, class_weight='balanced', dual=False,
+    AdaBoostClassifier(algorithm='SAMME', base_estimator=None,
+                   learning_rate=1.4171468839560952, n_estimators=43,
+                   random_state=0)
+                  precision    recall  f1-score   support
+
+               0       0.72      0.87      0.79        15
+               1       0.96      0.92      0.94        60
+
+        accuracy                           0.91        75
+       macro avg       0.84      0.89      0.86        75
+    weighted avg       0.92      0.91      0.91        75
+
+    Confusion Matrix:
+    Predicted   0   1
+    Actual           
+    0          13   2
+    1           5  55
+
+    Sensitivity: 0.9166666666666666
+    Specificity: 0.8666666666666667
+    PPV: 0.9649122807017544
+    NPV: 0.7222222222222222
+
+    GradientBoostingClassifier(ccp_alpha=0.0, criterion='mae', init=None,
+                               learning_rate=2.185471712937021, loss='exponential',
+                               max_depth=21, max_features=None, max_leaf_nodes=None,
+                               min_impurity_decrease=0.010576807442075523,
+                               min_impurity_split=None, min_samples_leaf=9,
+                               min_samples_split=5,
+                               min_weight_fraction_leaf=0.008934718614468866,
+                               n_estimators=243, n_iter_no_change=None,
+                               presort='deprecated', random_state=0,
+                               subsample=0.5360294592086643, tol=0.0001,
+                               validation_fraction=0.1, verbose=0,
+                               warm_start=False)
+                  precision    recall  f1-score   support
+
+               0       0.69      0.73      0.71        15
+               1       0.93      0.92      0.92        60
+
+        accuracy                           0.88        75
+       macro avg       0.81      0.82      0.82        75
+    weighted avg       0.88      0.88      0.88        75
+
+    Confusion Matrix:
+    Predicted   0   1
+    Actual           
+    0          11   4
+    1           5  55
+
+    Sensitivity: 0.9166666666666666
+    Specificity: 0.7333333333333333
+    PPV: 0.9322033898305084
+    NPV: 0.6875
+
+
+    LogisticRegression(C=0.9887706433683173, class_weight='balanced', dual=False,
                        fit_intercept=True, intercept_scaling=1, l1_ratio=None,
-                       max_iter=120, multi_class='ovr', n_jobs=8, penalty='none',
-                       random_state=0, solver='sag', tol=0.002870818059540498,
+                       max_iter=533, multi_class='ovr', n_jobs=8, penalty='l1',
+                       random_state=0, solver='liblinear', tol=0.09016392391873748,
                        verbose=0, warm_start=False)
                   precision    recall  f1-score   support
 
-               0       0.94      0.74      0.83       270
-               1       0.20      0.60      0.31        30
+               0       0.54      1.00      0.70        15
+               1       1.00      0.78      0.88        60
 
-        accuracy                           0.73       300
-       macro avg       0.57      0.67      0.57       300
-    weighted avg       0.87      0.73      0.78       300
+        accuracy                           0.83        75
+       macro avg       0.77      0.89      0.79        75
+    weighted avg       0.91      0.83      0.84        75
 
     Confusion Matrix:
-    Predicted   0    1
-    Actual            
-    0          200  70
-    1           12  18
+    Predicted   0   1
+    Actual           
+    0          15   0
+    1          13  47
 
-    Sensitivity: 0.6
-    Specificity: 0.7407407407407407
-    PPV: 0.20454545454545456
-    NPV: 0.9433962264150944
+    Sensitivity: 0.7833333333333333
+    Specificity: 1.0
+    PPV: 1.0
+    NPV: 0.5357142857142857
 
-    RandomForestClassifier(bootstrap=True, ccp_alpha=0.0,
-                           class_weight='balanced_subsample', criterion='gini',
-                           max_depth=None, max_features='log2', max_leaf_nodes=None,
-                           max_samples=None,
-                           min_impurity_decrease=0.008135280338330211,
-                           min_impurity_split=None, min_samples_leaf=6,
-                           min_samples_split=6,
-                           min_weight_fraction_leaf=0.04357678838454903,
-                           n_estimators=253, n_jobs=8, oob_score=False,
+
+    MLPClassifier(activation='tanh', alpha=0.0002830903013805367, batch_size=51,
+                  beta_1=0.7718083501222732, beta_2=0.9092746239556415,
+                  early_stopping=True, epsilon=1e-08, hidden_layer_sizes=(48,),
+                  learning_rate='constant', learning_rate_init=0.07020711995798333,
+                  max_fun=15000, max_iter=226, momentum=0.728900952648213,
+                  n_iter_no_change=10, nesterovs_momentum=True,
+                  power_t=0.6545765152044052, random_state=None, shuffle=True,
+                  solver='adam', tol=0.00838513832253034, validation_fraction=0.1,
+                  verbose=False, warm_start=False)
+                  precision    recall  f1-score   support
+
+               0       0.67      0.67      0.67        15
+               1       0.92      0.92      0.92        60
+
+        accuracy                           0.87        75
+       macro avg       0.79      0.79      0.79        75
+    weighted avg       0.87      0.87      0.87        75
+
+    Confusion Matrix:
+    Predicted   0   1
+    Actual           
+    0          10   5
+    1           5  55
+
+    Sensitivity: 0.9166666666666666
+    Specificity: 0.6666666666666666
+    PPV: 0.9166666666666666
+    NPV: 0.6666666666666666
+
+
+    RandomForestClassifier(bootstrap=True, ccp_alpha=0.0, class_weight='balanced',
+                           criterion='gini', max_depth=None, max_features='auto',
+                           max_leaf_nodes=None, max_samples=None,
+                           min_impurity_decrease=0.012715230600966963,
+                           min_impurity_split=None, min_samples_leaf=8,
+                           min_samples_split=8,
+                           min_weight_fraction_leaf=0.04291472632075911,
+                           n_estimators=54, n_jobs=8, oob_score=False,
                            random_state=0, verbose=0, warm_start=False)
                   precision    recall  f1-score   support
 
-               0       0.93      0.87      0.90       270
-               1       0.25      0.40      0.31        30
+               0       0.52      0.93      0.67        15
+               1       0.98      0.78      0.87        60
 
-        accuracy                           0.82       300
-       macro avg       0.59      0.63      0.60       300
-    weighted avg       0.86      0.82      0.84       300
+        accuracy                           0.81        75
+       macro avg       0.75      0.86      0.77        75
+    weighted avg       0.89      0.81      0.83        75
 
     Confusion Matrix:
-    Predicted   0    1
-    Actual            
-    0          234  36
-    1           18  12
+    Predicted   0   1
+    Actual           
+    0          14   1
+    1          13  47
 
-    Sensitivity: 0.4
-    Specificity: 0.8666666666666667
-    PPV: 0.25
-    NPV: 0.9285714285714286
+    Sensitivity: 0.7833333333333333
+    Specificity: 0.9333333333333333
+    PPV: 0.9791666666666666
+    NPV: 0.5185185185185185
 
-    SVC(C=0.13869718045614998, break_ties=False, cache_size=200,
+
+    SVC(C=8.109111614751674, break_ties=False, cache_size=200,
         class_weight='balanced', coef0=0.0, decision_function_shape='ovr', degree=3,
-        gamma='scale', kernel='linear', max_iter=-1, probability=True,
-        random_state=None, shrinking=True, tol=0.003993171050079279, verbose=False)
+        gamma='auto', kernel='rbf', max_iter=-1, probability=True,
+        random_state=None, shrinking=True, tol=0.007956619548009624, verbose=False)
                   precision    recall  f1-score   support
 
-               0       0.95      0.80      0.87       270
-               1       0.26      0.63      0.37        30
+               0       0.54      1.00      0.70        15
+               1       1.00      0.78      0.88        60
 
-        accuracy                           0.78       300
-       macro avg       0.61      0.72      0.62       300
-    weighted avg       0.88      0.78      0.82       300
+        accuracy                           0.83        75
+       macro avg       0.77      0.89      0.79        75
+    weighted avg       0.91      0.83      0.84        75
 
     Confusion Matrix:
-    Predicted   0    1
-    Actual            
-    0          216  54
-    1           11  19
+    Predicted   0   1
+    Actual           
+    0          15   0
+    1          13  47
 
-    Sensitivity: 0.6333333333333333
+    Sensitivity: 0.7833333333333333
+    Specificity: 1.0
+    PPV: 1.0
+    NPV: 0.5357142857142857
+
+
+    XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
+                  colsample_bynode=1, colsample_bytree=0.7415405030267324,
+                  gamma=2.2042208943656285, gpu_id=-1, importance_type='gain',
+                  interaction_constraints='', learning_rate=0.450598949209009,
+                  max_delta_step=0, max_depth=7, min_child_weight=3.547426392618232,
+                  missing=nan, monotone_constraints='()', n_estimators=159,
+                  n_jobs=0, num_parallel_tree=1, objective='binary:logistic',
+                  random_state=0, reg_alpha=0, reg_lambda=1,
+                  scale_pos_weight=1.0319233570783595, subsample=0.8240281755141652,
+                  tree_method='exact', validate_parameters=1, verbosity=None)
+                  precision    recall  f1-score   support
+
+               0       0.57      0.80      0.67        15
+               1       0.94      0.85      0.89        60
+
+        accuracy                           0.84        75
+       macro avg       0.76      0.82      0.78        75
+    weighted avg       0.87      0.84      0.85        75
+
+    Confusion Matrix:
+    Predicted   0   1
+    Actual           
+    0          12   3
+    1           9  51
+
+    Sensitivity: 0.85
     Specificity: 0.8
-    PPV: 0.2602739726027397
-    NPV: 0.9515418502202643
+    PPV: 0.9444444444444444
+    NPV: 0.5714285714285714
 
-#### Notes on Linear Classifiers:
-
-It's important to highlight here that the support vector machine classifier (SVC) is using a linear kernel as the basis function. It is unsuprising that logistic regression performs well also, since logistic regression is a linear model as well. Through the bayesian optimization process, the SVC with a linear kernel outperformed all other available kernel options (‘poly’, ‘rbf’, ‘sigmoid’, ‘precomputed’). It is possible for both logistic regression and the linear SVC to produce similar decision boundaries (thus similar performance) in this scenario. 
 
 ### Performance Characteristics Comparison (python scripts in progress)
 
