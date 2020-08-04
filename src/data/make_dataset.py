@@ -27,13 +27,15 @@ def main():
 
     # drop rows that don't have opt.label defined
     data = data[data[opt.label].notna()]
-
-    # define label dataframe
+	
+	# define label dataframe
     label = pd.DataFrame(data[opt.label])
+
+	# drop the label from main dataset
+    data = data.drop(columns=[opt.label])
 
     # select categorical features
     objects = data.select_dtypes(include='object')
-    objects = objects.drop(columns=[opt.label])
 
     if 'RACE_NEW' in opt.feature_list:
         objects['RACE_NEW'] = objects['RACE_NEW'].fillna('Unknown/Not Reported')

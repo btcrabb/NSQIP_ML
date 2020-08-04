@@ -1,0 +1,13 @@
+----------------- Options ---------------
+          checkpoints_dir: ./checkpoints                 
+             continue_opt: 0                             
+             dataset_path: data/split/                   
+                  gpu_ids: -1                            
+                max_evals: 1000                          	[default: 5000]
+                   metric: balanced_accuracy_score       
+                    model: SVC                           
+                  n_folds: 5                             
+                     name: experiment_name               
+              num_threads: 4                             
+                  outfile: reports/optimization/2020-08-03_bayes_test.csv
+----------------- End -------------------

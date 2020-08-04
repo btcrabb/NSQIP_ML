@@ -11,30 +11,38 @@ class DatasetOptions(BaseOptions):
 
         # raw data options
         parser.add_argument('--input_file', required=True, help='the raw data (should be .csv or .xlsx file')
-        parser.add_argument('--output_file', type=str, default = 'data/processed/NSQIP_processed.csv', help='path to save the output file')
+        parser.add_argument('--output_file', type=str, default = 'data/processed/Utah_processed.csv', help='path to save the output file')
         parser.add_argument('--train_test_datasets_path', type=str, default='data/split/',
                             help='path to the directory to save training and testing split datasets')
 
         # features to include
         parser.add_argument('--feature_list', nargs='+', default = [
-            'AGE',
-            'SEX',
-            'WEIGHT',
-            'HEIGHT',
-            'OPTIME',
-            'RETURNOR',
-            'TOTHLOS',
-            'PRSODM',
-            'PRBUN',
-            'PRCREAT',
-            'PRALBUM',
-            'PRPLATE',
-            'PRPTT',
-            'PRINR',
-            'PRPT',
-            'READMISSION1'
+            'RoomTime',
+            'Age',
+            'Gender',
+            'BMI',
+            'StereoInjury',
+            'StereoScan',
+            'SympVisual',
+            'SympIncidental',
+            'SympApoplexy',
+            'SympEndocrinopathy',
+            'SympHeadache',
+            'SympFailureMedMgmt',
+            'PitTumorType',
+            'SizeCategory',
+            'Endoscope',
+            'FatOrFascia',
+            'CSFDiversion',
+            'ReturntoOR',
+            'Complication',
+            'GTR',
+            'Recurrence',
+            'SurgicalCure',
+            'AnyPreopHormone',
+            'AnyPostopHormone'
         ])
-        parser.add_argument('--label', type=str, default='READMISSION1',
+        parser.add_argument('--label', type=str, default='SurgicalCure',
                             help='the features to use as the label')
 
         # processing
@@ -43,6 +51,6 @@ class DatasetOptions(BaseOptions):
         parser.add_argument('--fill_missing', type=str, default='median', help='How to replace missing values in continuous variables [median | mean ]')
         parser.add_argument('--no_normalize', action='store_true', help = 'Whether to normalize continuous data')
         parser.add_argument('--no_train_test_split', action='store_true', help = 'Whether to perform train_test_split' )
-        parser.add_argument('--testing_size', type=int, default=300, help = 'size of the testing dataset')
+        parser.add_argument('--testing_size', type=int, default=75, help = 'size of the testing dataset')
 
         return parser

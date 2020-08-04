@@ -8,6 +8,7 @@ from hyperopt import hp
 
 # Models
 import sklearn
+import numpy as np
 
 
 
