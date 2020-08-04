@@ -395,4 +395,4 @@ The Jupyter notebook 2.6-BTC-roc_auc_curves.ipynb can also produce a crosstab vi
 
 A permutation analysis to identify the most important features can be accomplished using the 2.5-BTC-permutations.ipynb Jupyter notebook. Shown below is the complete permutation analysis for currently included variables, from most to least important. Negative values indicate high feature importance. Positive values may indicate that the inclusion of this feature is actually hurting algorithm performance. 
 
-![](./reports/figures/permutations_bar_graph.png)
+![](./reports/figures/impurity_features_bar_graph.png)
