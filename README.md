@@ -170,7 +170,7 @@ Peformance on the testing dataset is similar to performance achieved during the 
 
 The 2.6-BTC-roc_auc_curves.ipynb Jupyter notebook can be used to produce a table of results, with and without bootstrapped confidence intervals, to compare each optimized algorithm on the testing dataset. These tables are shown below:
 
-![](./reports/figures/performance_characteristics.html)
+![](./reports/figures/testing_performance_characteristics.png)
 
 The performance on the testing dataset is similar to the performance during the cross validation phase, which is shown below.
 
