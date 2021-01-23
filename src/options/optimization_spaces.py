@@ -8,6 +8,7 @@ from hyperopt import hp
 
 # Models
 import sklearn
+import numpy as np
 
 
 
@@ -84,10 +85,10 @@ def load(model):
 
         # Define the search space
         space = {
-            'n_estimators': hp.choice('n_estimators', range(10, 100)),
-            'learning_rate': hp.uniform('learning_rate', 0.01, 10),
+            'n_estimators': hp.choice('n_estimators', range(10, 200)),
+            'learning_rate': hp.uniform('learning_rate', 0.1, 10),
             'algorithm': hp.choice('algorithm', ['SAMME', 'SAMME.R']),
-            'random_state': hp.choice('random_state', [0]),
+            #'random_state': hp.choice('random_state', [0]),
         }
 
     elif model == 'GradientBoosting':

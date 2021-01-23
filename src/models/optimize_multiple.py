@@ -10,8 +10,12 @@ from datetime import date
 
 def main():
     models_list = [
-        'SVC',
-        'LogisticRegression'
+
+        'XGBoost',
+        'DecisionTree',
+        'AdaBoost',
+        'RandomForest',
+        'GradientBoosting'
     ]
 
     for model in models_list:

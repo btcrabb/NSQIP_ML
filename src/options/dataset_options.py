@@ -19,18 +19,14 @@ class DatasetOptions(BaseOptions):
         parser.add_argument('--feature_list', nargs='+', default = [
             'AGE',
             'SEX',
-            'WEIGHT',
-            'HEIGHT',
+            'BMI',
             'OPTIME',
             'RETURNOR',
-            'TOTHLOS',
             'PRSODM',
             'PRBUN',
             'PRCREAT',
-            'PRALBUM',
             'PRPLATE',
             'PRPTT',
-            'PRINR',
             'PRPT',
             'READMISSION1'
         ])

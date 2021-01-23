@@ -23,7 +23,16 @@ def main():
 
     # load the dataset and select features
     dataset = pd.read_csv(opt.input_file)
-    data = dataset[opt.feature_list]
+    
+    ############################################################
+    dataset2 = pd.read_csv('data/raw/complete.csv')
+    data2 = dataset2[opt.feature_list]
+    
+    data1 = dataset[opt.feature_list]
+    
+    data = pd.concat([data1, data2])
+    
+    ############################################################
 
     # drop rows that don't have opt.label defined
     data = data[data[opt.label].notna()]
