@@ -159,18 +159,18 @@ A comparison of the ROC curves, with AUC scores, for each optimized algorithm ca
 
 The results from this script, for algorithms that have currently been optimized can be seen below. Confidence intervals for the AUC scores are calculated via bootstrapping. 
 
-![ROC Scores.](./reports/figures/Crossval_ROC_AUC_comparison.png "Cross Validation ROC AUC comparison")
+![ROC Scores.](./reports/figures/ROC_AUC_comparison.png "ROC AUC comparison")
 
 Peformance on the testing dataset is similar to performance achieved during the cross validation phase, which is shown below. This indicates that the algorithms were able to generalize well to new data and did not overfit the training data. 
 
-![CROSSVAL ROC Scores.](./reports/figures/ROC_AUC_comparison.png "ROC AUC comparison")
+![CROSSVAL ROC Scores.](./reports/figures/Crossval_ROC_AUC_comparison.png "Cross Validation ROC AUC comparison")
 
 
 ### Performance Characteristics Comparison (python scripts in progress)
 
 The 2.6-BTC-roc_auc_curves.ipynb Jupyter notebook can be used to produce a table of results, with and without bootstrapped confidence intervals, to compare each optimized algorithm on the testing dataset. These tables are shown below:
 
-![](./reports/figures/performance_characteristics.png)
+![](./reports/figures/performance_characteristics.html)
 
 The performance on the testing dataset is similar to the performance during the cross validation phase, which is shown below.
 
