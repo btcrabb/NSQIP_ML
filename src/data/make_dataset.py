@@ -12,6 +12,9 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 import sklearn.preprocessing as preprocessing
 
+from pickle import dump
+from pickle import load
+
 def main():
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
@@ -23,14 +26,18 @@ def main():
 
     # load the dataset and select features
     dataset = pd.read_csv(opt.input_file)
+    data = dataset[opt.feature_list]
     
     ############################################################
-    dataset2 = pd.read_csv('data/raw/complete.csv')
-    data2 = dataset2[opt.feature_list]
+    #dataset2 = pd.read_csv('data/raw/complete.csv')
+    #data2 = dataset2[opt.feature_list]
+	
+    #dataset3 = pd.read_csv('data/raw/upmc_data.csv')
+    #data3 = dataset3[opt.feature_list]
     
-    data1 = dataset[opt.feature_list]
-    
-    data = pd.concat([data1, data2])
+    #data1 = dataset[opt.feature_list]
+	
+    #data = pd.concat([data1, data2, data3])
     
     ############################################################
 
@@ -85,7 +92,7 @@ def main():
             print('{} not a valid option for fill_missing [use mean or median]'.format(opt.fill_missing))
 
     # replace height and weight with BMI value
-    if not opt.no_bmi:
+    if opt.bmi:
         def calculate_bmi(weight, height):
             return (weight / (height ** 2)) * 703
 
@@ -99,7 +106,15 @@ def main():
 
     # normalize the scalar values
     if not opt.no_normalize:
-        scaler = preprocessing.StandardScaler().fit(numerical)
+        if opt.load_scaler:
+			# load the scaler
+            scaler = load(open('scaler.pkl', 'rb'))
+        else:
+            scaler = preprocessing.StandardScaler().fit(numerical)
+		
+			# save the scaler
+            dump(scaler, open('scaler.pkl', 'wb'))
+		
         stand_dataset = scaler.transform(numerical)
         stand_dataset = pd.DataFrame(stand_dataset, index=numerical.index, columns=numerical.columns)
 
@@ -122,8 +137,7 @@ def main():
         features.columns = ["".join(c if c.isalnum() else "_" for c in str(x)) for x in features.columns]
 
         # Split into training and testing data
-        train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size=opt.testing_size,
-                                                                                    random_state=0)
+        train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size=opt.testing_size, random_state=0)
 
         print('Train shape: ', train_features.shape)
         print('Test shape: ', test_features.shape)
@@ -136,7 +150,24 @@ def main():
         pd.DataFrame(test_labels).to_csv(opt.train_test_datasets_path + 'test_labels.csv')
 
         print('Done!')
+		
+    else:
+	
+		# Extract the labels
+        labels = np.array(final_df[opt.label].astype(np.int32)).reshape((-1,))
+        features = final_df.drop(columns=[opt.label])
+        features.columns = ["".join(c if c.isalnum() else "_" for c in str(x)) for x in features.columns]
+		
+        print('Train shape: ', features.shape)
 
+        print('Saving testing and training datasets')
+        # Save as individual .csv files
+        pd.DataFrame(features).to_csv(opt.train_test_datasets_path + 'train_features.csv')
+        pd.DataFrame(labels).to_csv(opt.train_test_datasets_path + 'train_labels.csv')
+
+        print('Done!')
+		
+		
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'

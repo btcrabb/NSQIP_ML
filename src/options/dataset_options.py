@@ -18,27 +18,27 @@ class DatasetOptions(BaseOptions):
         # features to include
         parser.add_argument('--feature_list', nargs='+', default = [
             'AGE',
-            'SEX',
+            'RETURNOR',
+            'TOTHLOS',
             'BMI',
             'OPTIME',
-            'RETURNOR',
             'PRSODM',
             'PRBUN',
             'PRCREAT',
-            'PRPLATE',
             'PRPTT',
-            'PRPT',
-            'READMISSION1'
+            'ASACLAS',
+            'UNPLANNEDREADMISSION1'
         ])
-        parser.add_argument('--label', type=str, default='READMISSION1',
+        parser.add_argument('--label', type=str, default='UNPLANNEDREADMISSION1',
                             help='the features to use as the label')
 
         # processing
-        parser.add_argument('--no_bmi', action='store_true', help='Whether to reduce height and weight features into BMI value')
+        parser.add_argument('--bmi', action='store_true', help='Reduce height and weight features into BMI value')
         parser.add_argument('--no_encode_unknown', action='store_true', help='Whether to encode np.NaN values as own category')
-        parser.add_argument('--fill_missing', type=str, default='median', help='How to replace missing values in continuous variables [median | mean ]')
+        parser.add_argument('--fill_missing', type=str, default='mean', help='How to replace missing values in continuous variables [median | mean ]')
         parser.add_argument('--no_normalize', action='store_true', help = 'Whether to normalize continuous data')
         parser.add_argument('--no_train_test_split', action='store_true', help = 'Whether to perform train_test_split' )
         parser.add_argument('--testing_size', type=int, default=300, help = 'size of the testing dataset')
+        parser.add_argument('--load_scaler', action='store_true', help='Load predefined scaler for dataset normalization')
 
         return parser
