@@ -149,7 +149,7 @@ The results of the Bayesian parameter optimization can be visualized using the s
 
 An example from the optimization of the SVC can be seen below:
 
-![Scores.](./reports/optimization/SVC/2020-07-31_bayes_test_SCORES.png "Balanced Accuracy Score by Iteration")
+![Scores.](./reports/optimization/SVC/2021-01-17_bayes_test_SCORES.png "Balanced Accuracy Score by Iteration")
 
 ### ROC AUC Curve Comparison 
 
@@ -161,68 +161,20 @@ The results from this script, for algorithms that have currently been optimized 
 
 ![ROC Scores.](./reports/figures/ROC_AUC_comparison.png "ROC AUC comparison")
 
-Currently, the best performance was achieved by the SVC, LogisticRegression, and Random Forest algorithms. Additional performance metrics for these algorithms are shown below:
+Peformance on the testing dataset is similar to performance achieved during the cross validation phase, which is shown below. This indicates that the algorithms were able to generalize well to new data and did not overfit the training data. 
 
-    LogisticRegression(C=8.959365576320842, class_weight='balanced', dual=False,
-                   fit_intercept=False, intercept_scaling=1, l1_ratio=None,
-                   max_iter=554, multi_class='ovr', n_jobs=8, penalty='l2',
-                   random_state=0, solver='newton-cg', tol=0.04087113898920076,
-                   verbose=0, warm_start=False)
-                  precision    recall  f1-score   support
+![CROSSVAL ROC Scores.](./reports/figures/Crossval_ROC_AUC_comparison.png "Cross Validation ROC AUC comparison")
 
-               0       0.94      0.63      0.75       270
-               1       0.17      0.67      0.26        30
-
-        accuracy                           0.63       300
-       macro avg       0.55      0.65      0.51       300
-    weighted avg       0.87      0.63      0.70       300
-
-    Confusion Matrix:
-    Predicted    0    1
-    Actual             
-    0          169  101
-    1           10   20
-
-    Sensitivity: 0.6666666666666666
-    Specificity: 0.6259259259259259
-    PPV: 0.1652892561983471
-    NPV: 0.9441340782122905
-
-
-    SVC(C=0.5976523522875594, break_ties=False, cache_size=200,
-        class_weight='balanced', coef0=0.0, decision_function_shape='ovr', degree=3,
-        gamma='scale', kernel='rbf', max_iter=-1, probability=True,
-        random_state=None, shrinking=True, tol=0.0007629756258825445,
-        verbose=False)
-                  precision    recall  f1-score   support
-
-               0       0.93      0.81      0.87       270
-               1       0.22      0.47      0.30        30
-
-        accuracy                           0.78       300
-       macro avg       0.58      0.64      0.58       300
-    weighted avg       0.86      0.78      0.81       300
-
-    Confusion Matrix:
-    Predicted    0   1
-    Actual            
-    0          220  50
-    1           16  14
-
-    Sensitivity: 0.4666666666666667
-    Specificity: 0.8148148148148148
-    PPV: 0.21875
-    NPV: 0.9322033898305084
-
-#### Notes on Linear Classifiers:
-
-It's important to highlight here that the support vector machine classifier (SVC) is using a linear kernel as the basis function. It is unsuprising that logistic regression performs well also, since logistic regression is a linear model as well. Through the bayesian optimization process, the SVC with a linear kernel outperformed all other available kernel options (‘poly’, ‘rbf’, ‘sigmoid’, ‘precomputed’). It is possible for both logistic regression and the linear SVC to produce similar decision boundaries (thus similar performance) in this scenario. 
 
 ### Performance Characteristics Comparison (python scripts in progress)
 
-The 2.6-BTC-roc_auc_curves.ipynb Jupyter notebook can be used to produce a table of results, with and without bootstrapped confidence intervals, to compare each optimized algorithm. These tables are shown below:
+The 2.6-BTC-roc_auc_curves.ipynb Jupyter notebook can be used to produce a table of results, with and without bootstrapped confidence intervals, to compare each optimized algorithm on the testing dataset. These tables are shown below:
 
-![](./reports/figures/performance_chars.png)
+![](./reports/figures/testing_performance_characteristics.png)
+
+The performance on the testing dataset is similar to the performance during the cross validation phase, which is shown below.
+
+![](./reports/figures/crossval_performance_characteristics.png)
 
 ### Bar Graphs with Confidence Intervals (python scripts in progress)
 
@@ -230,15 +182,15 @@ For each performance characteristic, a bar graph can be generated showing the re
 
 Sensitivity                |  Specificity               
 :-------------------------:|:-------------------------: 
-![](./reports/figures/bar_graphs/Sensitivity_bar_graph.png)   |  ![](./reports/figures/bar_graphs/Specificity_bar_graph.png)    
+![](./reports/figures/Sensitivity_bar_graph.png)   |  ![](./reports/figures/Specificity_bar_graph.png)    
 
 PPV                         |    NPV
 :-------------------------: | :-------------------------:
-![](./reports/figures/bar_graphs/PPV_bar_graph.png) | ![](./reports/figures/bar_graphs/NPV_bar_graph.png)
+![](./reports/figures/PPV_bar_graph.png) | ![](./reports/figures/NPV_bar_graph.png)
 
 F1 Score                    |    ROC Curve AUC
 :-------------------------: | :-------------------------:
-![](./reports/figures/bar_graphs/F1-score_bar_graph.png) | ![](./reports/figures/bar_graphs/AUC_bar_graph.png)
+![](./reports/figures/F1-score_bar_graph.png) | ![](./reports/figures/AUC_bar_graph.png)
 
 ### Cohen's Kappa Scores for Classifier Agreement
 
@@ -250,4 +202,4 @@ The Jupyter notebook 2.6-BTC-roc_auc_curves.ipynb can also produce a crosstab vi
 
 A permutation analysis to identify the most important features can be accomplished using the 2.5-BTC-permutations.ipynb Jupyter notebook. Shown below is the complete permutation analysis for currently included variables, from most to least important. Negative values indicate high feature importance. Positive values may indicate that the inclusion of this feature is actually hurting algorithm performance. 
 
-![](./reports/figures/impurity_features_bar_graph.png)
+![](./reports/figures/permutation_bar_graph.png)
