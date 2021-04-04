@@ -118,7 +118,7 @@ def load(model):
     elif model == 'XGBoost':
         import xgboost
 
-        MODEL = xgboost.XGBClassifier()
+        MODEL = xgboost.XGBClassifier(tree_method='gpu_hist', gpu_id=1, eval_metric='logloss')
 
         # Define the search space
         space = {

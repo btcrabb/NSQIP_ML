@@ -1,0 +1,6 @@
+loss,hyperparameters,iteration,runtime,score
+0.5,"{'class_weight': None, 'criterion': 'entropy', 'max_features': 'log2', 'min_impurity_decrease': 0.4478331170748776, 'min_samples_leaf': 5, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.338402433942873, 'random_state': 0}",1,0.01758422190323472,0.5
+0.5,"{'class_weight': None, 'criterion': 'gini', 'max_features': None, 'min_impurity_decrease': 0.4549521572474785, 'min_samples_leaf': 7, 'min_samples_split': 6, 'min_weight_fraction_leaf': 0.47171807283449463, 'random_state': 0}",2,0.018836382078006864,0.5
+0.5,"{'class_weight': None, 'criterion': 'entropy', 'max_features': None, 'min_impurity_decrease': 0.1525469003139336, 'min_samples_leaf': 6, 'min_samples_split': 6, 'min_weight_fraction_leaf': 0.4755877570711515, 'random_state': 0}",3,0.018658088985830545,0.5
+0.5,"{'class_weight': None, 'criterion': 'gini', 'max_features': 'auto', 'min_impurity_decrease': 0.3435930548761383, 'min_samples_leaf': 4, 'min_samples_split': 7, 'min_weight_fraction_leaf': 0.3495809422509794, 'random_state': 0}",4,0.017283195164054632,0.5
+0.5,"{'class_weight': None, 'criterion': 'gini', 'max_features': 'auto', 'min_impurity_decrease': 0.12041104940475433, 'min_samples_leaf': 8, 'min_samples_split': 3, 'min_weight_fraction_leaf': 0.3105113727670924, 'random_state': 0}",5,0.016495486022904515,0.5

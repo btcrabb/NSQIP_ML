@@ -1,0 +1,3 @@
+loss,hyperparameters,iteration,runtime,score
+nan,"{'algorithm': 'SAMME', 'learning_rate': 3.8757316202788683, 'n_estimators': 155}",1,0.0648477440699935,nan
+nan,"{'algorithm': 'SAMME', 'learning_rate': 8.028176704029917, 'n_estimators': 142}",2,0.038396461168304086,nan
